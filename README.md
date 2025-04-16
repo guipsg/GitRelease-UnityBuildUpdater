@@ -1,155 +1,157 @@
+
 # 🕹️ Game Updater (GitHub Release Updater)
 
-Este projeto é um atualizador de build em **Python** que baixa automaticamente a versão mais recente de Release em um repositório **privado** do GitHub. Ele é ideal para pipelines de distribuição de builds em ambientes controlados (testes, QA, publicadores, etc).
+[EN](https://github.com/guipsg/GitRelease-Updater/blob/main/README.md) | [PT-BR](https://github.com/guipsg/GitRelease-Updater/blob/main/README_PT.md)
+
+This project is a **Python-based** build updater that automatically downloads the latest Release version from a **private** GitHub repository. It's ideal for automating build distribution pipelines in controlled environments (testing, QA, publishers, etc).
 
 >[!NOTE]
->Esse projeto foi feito pensando em automatizar o processo de testes de builds locais.
+>This project was created to automate the process of testing local builds.
 
-> 🔐 Requer um token de acesso do GitHub com permissões de leitura em repositórios privados.
-
----
-
-## 🚀 Funcionalidades
-
-- Acessa o release mais recente do GitHub (via API)
-- Faz download do asset da build (ex: `.zip`)
-- Substitui a build atual da Unity por essa nova
-- Empacotado como um executável `.exe` com PyInstaller
-- Suporte a variáveis de ambiente com `.env`
+> 🔐 Requires a GitHub access token with read permissions for private repositories.
 
 ---
 
-## 📁 Estrutura do Projeto
+## 🚀 Features
+
+- Accesses the latest GitHub release (via API)
+- Downloads the build asset (e.g., `.zip`)
+- Replaces the current Unity build with the new one
+- Packaged as a `.exe` file using PyInstaller
+- Supports environment variables via `.env`
+
+---
+
+## 📁 Project Structure
 
 ```
 game-updater/
 │
-├── main.py                     # Setup do Atualizador
-├── requirements.txt            # Dependências do projeto
-├── environmentGenerator.bat    # Automatiza a criação de ambiente virtual
-├── environmentUpdater.bat      # Automatiza a instalação de dependências
-├── executableGenerator.bat     # Script automático de build do .exe
-└── dist/                       # Onde o .exe final é gerado
+├── main.py                     # Updater Setup
+├── requirements.txt            # Project dependencies
+├── environmentGenerator.bat    # Automates virtual environment creation
+├── environmentUpdater.bat      # Automates dependency installation
+├── executableGenerator.bat     # Script to generate the .exe file
+└── dist/                       # Output folder for the generated .exe
 ```
 
 ---
 
-## 🛠️ Requisitos
+## 🛠️ Requirements
 
-- Python 3.8 ou superior
-- GitHub token com permissão de leitura em repositórios privados
-- Pip e venv instalados
+- Python 3.8 or higher
+- GitHub token with read access to private repositories
+- Pip and venv installed
 
 ---
 
-## 🧪 Setup para Desenvolvimento
+## 🧪 Development Setup
 
-### 1. Clone o repositório
+### 1. Clone the repository
 
 ```bash
 git clone https://github.com/guipsg/GitRelease-Updater.git
 ```
 
-### 2. Crie e ative um ambiente virtual
+### 2. Create and activate a virtual environment
 
 ```bash
 cd GitRelease-Updater/game-updater
 python -m venv venv
 venv\Scripts\activate  # Windows
 ```
-ou
+or
 
-Executar: `environmentGenerator.bat`
+Run: `environmentGenerator.bat`
 
-
-
-### 3. Instale as dependências
+### 3. Install dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
-ou
+or
 
-Executar: `environmentUpdater.bat`
-
+Run: `environmentUpdater.bat`
 
 ---
 
-## ▶️ Executando o script
+## ▶️ Running the script
 
-Edite o código Python: `main.py`
+Edit the Python script: `main.py`
+
 ```python
-# CONFIGURAÇÕES
-GITHUB_TOKEN = "ghp_seu_token_aqui"
-REPO_OWNER = "nome-do-dono"
-REPO_NAME = "nome-do-repositorio"
-ASSET_NAME = "nome-da-build.zip"  # nome do arquivo da build no release
-BUILD_DIR = ".\build"  # pasta onde a build estará
-TEMP_DIR = "temp_download"  # pasta temporária
+# CONFIGURATION
+GITHUB_TOKEN = "ghp_your_token_here"
+REPO_OWNER = "repository-owner"
+REPO_NAME = "repository-name"
+ASSET_NAME = "build-file-name.zip"  # name of the build file in the release
+BUILD_DIR = ".\build"              # folder where the build will be placed
+TEMP_DIR = "temp_download"          # temporary folder
 ```
 
-
-Com o ambiente ativado:
+With the environment activated:
 
 ```bash
 python main.py
 ```
-ou
+or
 
-Executar: `main_venv_runTest.bat`
+Run: `main_venv_runTest.bat`
 
 ---
-### O script irá fazer o download do arquivo .zip que foi configurado e extrair em na pasta da configurada em `BUILD_DIR`
 
-## 🏗️ Gerando o Executável `.exe`
+### The script will download the configured `.zip` file and extract it to the folder set in `BUILD_DIR`.
+
+## 🏗️ Generating the `.exe`
 
 >[!NOTE]
->Esse executável não é necessário gerar, mas pode ser bom caso queira ter um atualizador automatizado sem a necessidade de instalar esse repositório ou repetir todo o processo de setup em outro computador
+>This executable is not required, but can be useful if you want an automated updater without needing to install this repo or repeat the setup process on another machine.
 
-Você pode compilar tudo em um `.exe` com PyInstaller. Use o script `executableGenerator.bat`:
+You can compile everything into a `.exe` with PyInstaller. Use the `executableGenerator.bat` script:
 
 ```bash
 executableGenerator.bat
 ```
 
-Ou manualmente:
+Or manually:
 
 ```bash
 venv\Scripts\activate
-pyinstaller --onefile --clean  main.py
+pyinstaller --onefile --clean main.py
 ```
 
-O executável será gerado na pasta `dist/`.
+The executable will be generated inside the `dist/` folder.
 
 ---
 
-## ⚠️ Observações
+## ⚠️ Notes
 
-- O script assume que o nome do asset no release do GitHub é fixo (ex: `nome-da-build.zip`). Edite o script para comportar as necessidades do seu repositório.
-- A build antiga da Unity será **substituída**. Faça backup se necessário.
-- O caminho da build local é configurado na constante `BUILD_DIR` dentro do script.
-- Pode ser que você precise dar a algum programa permissões de adm caso não consiga rodar corretamente, mas isso não é obrigatório.
+- The script assumes the asset name in the GitHub release is fixed (e.g., `build-file-name.zip`). Edit the script as needed to match your repository.
+- The previous Unity build will be **replaced**. Backup if necessary.
+- The local build path is configured in the `BUILD_DIR` constant in the script.
+- You might need to grant admin permissions to some programs if execution fails, but it's usually not required.
 
 ---
 
-## 🧼 Limpando a build
+## 🧼 Cleaning up the build
 
-Para apagar os arquivos temporários gerados pelo PyInstaller:
+To delete temporary files generated by PyInstaller:
 
 ```bash
 rd /s /q build
 rd /s /q dist
 del *.spec
 ```
-ou delete as pastas `build` `dist` e o arquivo `main.spec`
+or manually delete the `build`, `dist` folders and `main.spec` file.
 
+---
 
-## 📄 Licença
+## 📄 License
 
-Este projeto está licenciado sob os termos da MIT License.
+This project is licensed under the terms of the MIT License.
 
+---
 
+## 🤝 Contributing
 
-## 🤝 Contribuindo
-
-Contribuições são bem-vindas! Sinta-se à vontade para abrir issues ou pull requests.
+Contributions are welcome! Feel free to open issues or pull requests.
