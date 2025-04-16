@@ -1,1 +1,9 @@
-pyinstaller --onefile main.py
+@echo off
+echo [1/3] Ativando ambiente virtual...
+call venv\Scripts\activate
+
+echo [1/3] Gerando executavel...
+pyinstaller --onefile --clean main.py
+
+echo [1/3] Desativando ambiente virtual...
+deactivate

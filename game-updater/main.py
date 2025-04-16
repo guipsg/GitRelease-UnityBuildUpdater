@@ -5,11 +5,11 @@ import zipfile
 import shutil
 
 # CONFIGURAÇÕES
-GITHUB_TOKEN = "seu_token_aqui"
+GITHUB_TOKEN = "ghp_seu_token_aqui"
 REPO_OWNER = "nome-do-dono"
 REPO_NAME = "nome-do-repositorio"
 ASSET_NAME = "nome-da-build.zip"  # nome do arquivo da build no release
-BUILD_DIR = ".\build"  # pasta onde a build está
+BUILD_DIR = ".\build"  # pasta onde a build estará
 TEMP_DIR = "temp_download"  # pasta temporária
 
 # HEADERS para autenticação

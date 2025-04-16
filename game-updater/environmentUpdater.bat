@@ -1,0 +1,13 @@
+@echo off
+echo [1/4] Ativando ambiente virtual...
+call venv\Scripts\activate
+
+echo [1/4] Atualizando pip...
+python.exe -m pip install --upgrade pip
+
+echo [2/4] Atualizando requirements...
+pip install -r requirements.txt
+pip install pyinstaller
+
+echo [3/4] desativando ambiente virtual...
+deactivate
