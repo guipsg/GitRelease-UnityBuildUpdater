@@ -1,1 +1,1 @@
-pip install requests tqdm
+pip install requests tqdm pyinstaller
